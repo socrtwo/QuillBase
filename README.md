@@ -1,0 +1,73 @@
+# Anne's Base
+
+*Part of the Anne's Office suite: [Anne's Pen](https://github.com/socrtwo/QuillPen) (documents), [Anne's Grid](https://github.com/socrtwo/QuillGrid) (spreadsheets), [Anne's Post](https://github.com/socrtwo/QuillPost) (email), [Anne's Stage](https://github.com/socrtwo/QuillStage) (presentations), [Anne's Loom](https://github.com/socrtwo/QuillLoom) (web sites), [Anne's Press](https://github.com/socrtwo/QuillPress) (desktop publishing), [Anne's Folio](https://github.com/socrtwo/QuillFolio) (PDF), [Anne's Lens](https://github.com/socrtwo/QuillLens) (pictures) and **Anne's Base** (databases).*
+
+An original, open-source desktop database for Android, iOS, Windows, macOS, Linux, ChromeOS and the web, in the tradition of Microsoft Access: tables, queries, forms, reports, macros and code in one file, for people who are not database administrators. Its goal is the same as the rest of the Anne's Office suite: **no missing commands**. Anne's Base gathers the commands of Access (including features Access has retired), of the classic database programs (dBASE, FoxPro and Visual FoxPro, Clipper, Paradox, FileMaker, Lotus Approach, Works, Q&A, R:BASE, DataEase, Alpha Four, HyperCard), of the open-source and server tools (LibreOffice Base, Kexi, SQLite, PostgreSQL, MySQL, SQL Server Management Studio, DBeaver, DuckDB) and of the web databases (Airtable, Notion, Quickbase, Power Apps), adds ideas of its own, and has an **AI** tab and menu for asking questions of your data, designing databases, writing queries and code, cleaning data and diagnosing damage. Every feature is a command, and every command can be put on the Quick Access Bar, on your own tab, in any classic menu layout, on a keyboard shortcut, in a macro, and found with command search. When a database is damaged, Anne's Base shows what it can recover instead of refusing to open it.
+
+> **Status: planning — no code yet.** This repository holds the plan: the feature survey, the command inventory, the classic menu layouts, the AI, formats, recovery and code plans, the intended architecture and the roadmap. Nothing here is built or released. Issues and discussion about the plan are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## The plan in brief
+
+- **693 planned commands** in File, Home, Create, External Data, Database Tools, Data, Repair & Recovery, xBase, View, AI, Developer and Help, plus the contextual Table, Query, Form and Macro tabs. Each command records where the idea comes from; 129 are new ideas. See [docs/COMMANDS-PLAN.md](docs/COMMANDS-PLAN.md).
+- **Classic menus as well as the ribbon.** The ribbon follows Access 2007 and later. View ▸ Menus adds a classic menu bar that defaults to **Access 2003** and can follow **dBASE III Plus ASSIST, the dBASE IV Control Center, FoxPro for DOS, Visual FoxPro, Paradox for DOS and for Windows, FileMaker Pro, Lotus Approach, Works, LibreOffice Base, SQL Server Management Studio or DBeaver**, all programs combined, or a **complete** layout with every command. See [docs/MENUS-PLAN.md](docs/MENUS-PLAN.md).
+- **Access's keys and habits:** F11 navigation pane, F5 go to record, F9 and Shift+F9 refresh and requery, Ctrl+; date, Ctrl+' value from the previous record, Shift+Enter save record, F4 property sheet, F8 field list, Alt+F11 code editor, Ctrl+G Immediate window. FileMaker, FoxPro and SSMS key sets can be loaded instead.
+- **One file, safe by default.** The native `.qbase` file is SQLite inside, with a write-ahead journal: every record change can be undone, deleted records can be brought back, any table can be viewed *as of* an earlier time, and automatic snapshots are kept. No 2 GB limit.
+- **Opens what you already have:** Access `.accdb`, `.mdb` (Jet 3 and 4), `.accde`/`.mde` data, `.adp` forms and reports; dBASE, FoxPro and Clipper `.dbf` with memo and index files; Paradox; FileMaker exports; Approach, Works, Q&A and other historic formats; SQLite, DuckDB, LibreOffice Base `.odb`, SQL dumps, CSV, JSON, XML, spreadsheets, Parquet and GEDCOM; and live connections to PostgreSQL, MySQL/MariaDB, SQL Server, Oracle and Firebird. See [docs/FORMATS-PLAN.md](docs/FORMATS-PLAN.md).
+- **Everything Access does, plus what it dropped:** table design with validation, lookups, calculated fields and data macros; the query grid and every query type, with SQL view; forms and reports with layout and design views, subforms, conditional formatting and grouping; labels and form letters through Anne's Pen; macros and a VBA-compatible Basic. Restored: the Database window, switchboards, PivotTable and PivotChart views, replication (as two-way sync), user-level security (as roles), and a successor to data access pages and web apps that publishes a database as a phone and browser app.
+- **From the other programs:** the xBase **dot prompt**, work areas, `.prg` programs and PACK/ZAP/RECALL; Paradox **query by example** with example elements and ANSWER tables; FileMaker **Browse/Find/Layout/Preview modes**, portals, omit and constrain/extend found sets; Q&A's natural-language **Intelligent Assistant** with its taught vocabulary; Airtable and Notion **card, gallery, kanban, calendar, timeline and map views**, saved views and record comments; an SQL editor with plans, transactions, dialect translation and history from SSMS and DBeaver; Power Query-style **transform steps**.
+- **Data quality and records work:** exact and near-duplicate finding with merge, address and free-text date standardization ("abt 1850"), outlier and type-mismatch reports, validation of existing data, a data profiler, test data, and GEDCOM import and export for family history.
+- **AI tab and menu (optional):** Ask Your Data in plain English (always showing the SQL it ran and the rows, never an invented number), question to query, explain and improve SQL, design a database or a form from a description, suggest indexes and normalization, write and explain code, classify and extract fields from notes, match records across tables, turn scanned forms into rows, and **Diagnose with AI** for damaged files. By default only the schema is sent, never your data. See [docs/AI-PLAN.md](docs/AI-PLAN.md).
+- **Database repair and recovery:** Compact and Repair as you know it, plus Diagnose File for files that will not open, Deep Repair that rebuilds into a new file from the readable pages, system-table and code-project repair, dBASE header and memo repair, Paradox block repair, recovery of deleted records from free pages, SQLite WAL and journal recovery, object recovery from text exports, and carving of tables out of disk images and backups. The original is never written. See [docs/RECOVERY-PLAN.md](docs/RECOVERY-PLAN.md).
+- **Ideas new to desktop databases** are listed in [docs/INNOVATIONS.md](docs/INNOVATIONS.md#9-new-in-annes-base): record history and restore, undo delete with related records, find across the whole database, object version history, one migration wizard in and out of every program, phone preview of forms, and more.
+
+## Platforms (planned)
+
+Each release will have builds for **Android** (APK and AAB), **iOS/iPadOS** (an unsigned .ipa you sign with your Apple ID), **Windows** (installer for x64 or ARM, or portable), **macOS** (universal), **Linux** (AppImage or .deb for x64, arm64 and armv7l, which covers **Raspberry Pi OS**), **ChromeOS** (Android app, Linux app or web app) and the **web** (static files; offline-capable and installable). Server connections and ODBC need the desktop builds or the suite relay; everything else works everywhere. See [docs/ARCHITECTURE-PLAN.md](docs/ARCHITECTURE-PLAN.md) and [docs/ROADMAP.md](docs/ROADMAP.md).
+
+## The Anne's Office suite
+
+| App | What it is | Repository |
+|---|---|---|
+| **Anne's Pen** | Word processor | https://github.com/socrtwo/QuillPen |
+| **Anne's Grid** | Spreadsheet | https://github.com/socrtwo/QuillGrid |
+| **Anne's Post** | Email | https://github.com/socrtwo/QuillPost |
+| **Anne's Stage** | Presentations | https://github.com/socrtwo/QuillStage |
+| **Anne's Loom** | Web sites | https://github.com/socrtwo/QuillLoom |
+| **Anne's Press** | Desktop publishing | https://github.com/socrtwo/QuillPress |
+| **Anne's Folio** | PDF | https://github.com/socrtwo/QuillFolio |
+| **Anne's Lens** | Pictures | https://github.com/socrtwo/QuillLens |
+| **Anne's Base** | Databases (this project) | https://github.com/socrtwo/QuillBase |
+
+The apps share one application shell: command registry, Quick Access Bar, customizable tabs and keyboard, command search, macro recorder, AI setup wizard and providers, recovery engine and platform layer. Anne's Base sends mail merges, labels and form letters to Anne's Pen, live tables to Anne's Grid, catalogs and directories to Anne's Press, searchable web directories and published apps to Anne's Loom, reports to Anne's Folio, and e-mail through Anne's Post; it takes OCR text from Anne's Folio and Anne's Lens for Records from Documents.
+
+## Documentation
+
+| File | Contents |
+|---|---|
+| [docs/INNOVATIONS.md](docs/INNOVATIONS.md) | Survey of database programs, past and present, and what Anne's Base adopts from each |
+| [docs/COMMANDS-PLAN.md](docs/COMMANDS-PLAN.md) | The planned command inventory, tab by tab, with ids, shortcuts and origins (generated) |
+| [docs/MENUS-PLAN.md](docs/MENUS-PLAN.md) | The classic menu layouts and the ribbon's Home tab (generated) |
+| [docs/commands-plan.json](docs/commands-plan.json) | The same data as JSON, for the future catalog test (generated) |
+| [docs/QAT.md](docs/QAT.md) | The Quick Access Bar plan |
+| [docs/AI-PLAN.md](docs/AI-PLAN.md) | The AI tab: questions, design, code, data, repair; services, privacy and limits |
+| [docs/FORMATS-PLAN.md](docs/FORMATS-PLAN.md) | Every database and data format to open, link and save, current and historical |
+| [docs/RECOVERY-PLAN.md](docs/RECOVERY-PLAN.md) | Database repair, deleted-record recovery and carving |
+| [docs/CODE-PLAN.md](docs/CODE-PLAN.md) | Macros, the VBA-compatible Basic, the xBase interpreter, JavaScript and the object model |
+| [docs/ARCHITECTURE-PLAN.md](docs/ARCHITECTURE-PLAN.md) | Intended architecture: shell, storage engine, journal, query engine, designers, connectors, builds |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | Milestones |
+| [docs/ENSEMBLE.md](docs/ENSEMBLE.md) | Several AIs on one request: master synthesis or Quaker consensus |
+| [docs/LEGAL.md](docs/LEGAL.md) | Clean-room, trademark and licensing notes |
+
+The command and menu plans are generated: edit [docs/commands-plan.src.txt](docs/commands-plan.src.txt) or [docs/menus-plan.src.txt](docs/menus-plan.src.txt) and run `python3 scripts/gen-plan.py` (it also checks ids, menu references and shortcut conflicts).
+
+## Project language
+
+The interface, code comments and documentation use American English.
+
+## License
+
+[MIT](LICENSE). Copyright (c) 2026 Paul D Pruitt.
+
+## Legal
+
+Anne's Base is an independent, clean-room project released under the MIT License. It is not affiliated with, endorsed by, or sponsored by Microsoft, Claris, Corel, Lotus or IBM, Oracle, dBase LLC, the makers of any other database program named here, or any AI provider. Product names appear only to describe file-format compatibility, the arrangement a classic menu layout follows, or the origin of an idea (nominative use). Microsoft Access is a trademark of Microsoft Corporation; other names belong to their owners. The interface, icons, templates, sample data and text will be original or openly licensed. See [docs/LEGAL.md](docs/LEGAL.md).

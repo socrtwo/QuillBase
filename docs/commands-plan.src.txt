@@ -1,0 +1,932 @@
+# Anne's Base command plan — source file.
+# scripts/gen-plan.py reads this file and writes docs/COMMANDS-PLAN.md, docs/MENUS-PLAN.md and docs/commands-plan.json.
+# Edit this file, not the generated ones.
+#
+# Syntax
+#   @tab <id-prefix> | <Tab name> | <one-line description>
+#   ## <Group>
+#   <Label> | <id> | <shortcut> | <origins> | <notes>
+# Origins are the codes in the legend (ORIGINS below); NEW = an Anne's Base idea; SUITE = shared with the
+# other Anne's Office apps. A note containing "not in tabs" means the command has no default ribbon place.
+# Shortcuts are planned defaults; every one can be rebound.
+
+@tab file | File | Create, open, save, convert, protect, back up, share, print and close databases; options
+
+## New
+New Blank Database… | file.new | Ctrl+N | ACC,ALL | native .qbase file (SQLite inside); choose a folder, a name and a collation
+New from Template… | file.newFromTemplate | | ACC,FM,AT | contacts, assets, events, inventory, issues, students, members, class registrations, donations, library, recipes, family history
+New from Spreadsheet… | file.newFromSheet | | AT,FM,NEW | one table per sheet, types detected, header row and key suggested
+New from Description… | file.newFromDescription | | NEW,GENAI | opens AI ▸ Design Database with a blank file
+New Web App Database… | file.newWebApp | | ACCX,PA | a database published as a phone and browser app through Anne's Loom; replaces Access web apps and data access pages
+Database Wizard… | file.dbWizard | | ACCX,WKS | the classic step-by-step wizard: purpose, tables, fields, style, title
+
+## Open
+Open… | file.open | Ctrl+O | ALL | recognizes the format by content: .qbase, .accdb, .mdb, .dbf, .db, .fp7, .sqlite, .odb and the rest of FORMATS-PLAN.md
+Open Read-Only… | file.openReadOnly | | ACC |
+Open Exclusive… | file.openExclusive | | ACC | no other user or process may open the file
+Open Exclusive Read-Only… | file.openExclusiveReadOnly | | ACC |
+Open and Repair… | file.openRepair | | ACC,SUITE | runs the recovery methods before opening; see RECOVERY-PLAN.md
+Open Without Startup | file.openBypass | | ACC | skips the startup form, AutoExec macro and AutoExec data macros (Access: hold Shift)
+Open Connection… | file.openConnection | | SQLS,DBV,PG,MY | SQL Server, PostgreSQL, MySQL/MariaDB, Oracle, Firebird, DuckDB, ODBC (desktop), REST and the suite relay
+Open URL… | file.openUrl | | NEW | downloads a database or data file to the cache, then opens it
+Recent Databases | file.openRecent | | ALL |
+Pinned Databases | file.pinned | | ACC |
+Clear Recent List | file.clearRecent | | | not in tabs
+Open in New Window | file.newWindow | Ctrl+Shift+N | NEW | several databases side by side
+Show in Folder | file.revealInFolder | | NEW |
+
+## Save
+Save | file.save | Ctrl+S | ALL | saves the design of the active object; records are saved as they are entered
+Save As… | file.saveAs | F12 | ACC | the active object under a new name, or the database in another format
+Save Object As… | file.saveObjectAs | | ACC | form as report, query as form, table as query and similar conversions
+Save Database As… | file.saveDatabaseAs | | ACC | .qbase, .accdb, .mdb (Jet 4), .sqlite, .dbf set, .odb, SQL script
+Save All | file.saveAll | Ctrl+Alt+S | NEW | every open object with unsaved design changes
+Save as Template… | file.saveTemplate | | ACC | structure, forms, reports, macros, optional sample data (.qbaset)
+Save as Application (locked)… | file.saveLocked | | ACC | Access .accde/.mde equivalent: compiled code, design hidden; the source copy is kept
+Save as Runtime… | file.saveRuntime | | ACC | opens in runtime mode: no design views, no navigation pane (.accdr equivalent)
+Revert to Saved Design | file.revertDesign | | FM,NEW | discards design changes to the active object
+
+## Convert
+Convert Database… | file.convert | | ACC | between .qbase, .accdb, .mdb Jet 3 and Jet 4, SQLite and the SQL dialects, with a report of what could not be kept
+Export Whole Database as SQL Script… | file.exportSqlScript | | MY,PG,SQLT | CREATE and INSERT statements in a chosen dialect
+Export Whole Database as Text Folder… | file.exportTextFolder | | ACC,NEW | every object as text (Access SaveAsText style), for version control and recovery
+Import Whole Database from Text Folder… | file.importTextFolder | | ACC,NEW | the reverse; also rebuilds a damaged database from a good export
+
+## Protect
+Encrypt with Password… | file.encrypt | | ACC,SQLT,SUITE | AES-256 (SQLCipher-compatible for .qbase); .accdb encryption read and written
+Remove Password… | file.decrypt | | ACC |
+Change Password… | file.changePassword | | ACC |
+Users and Permissions… | file.permissions | | ACCX,SQLS,FM | roles, object and column permissions; replaces Jet user-level security
+Import Workgroup File (.mdw)… | file.importWorkgroup | | ACCX | reads users, groups and permissions from a Jet workgroup file into roles
+Trust This Database | file.trust | | ACC | allows macros and code from this file; Trust Center lists trusted locations
+Trust Center… | file.trustCenter | | ACC | trusted locations, macro settings, external content, privacy
+Digitally Sign… | file.sign | | ACC | signs code and macros; signature checked when opening
+
+## Back up
+Back Up Database… | file.backup | | ACC,SQLS | copy with a date in the name, verified after writing
+Back Up on a Schedule… | file.backupSchedule | | SQLS,FM,NEW | daily or on close, keeping a chosen number of copies; checksums recorded
+Restore from Backup… | file.restore | | SQLS,FM | shows backups with dates and sizes; restores beside the original first
+Snapshots | file.snapshots | | NEW | automatic point-in-time copies kept by the journal; browse, compare and restore
+Verify Backup | file.verifyBackup | | SQLS | opens the copy read-only, runs integrity checks and compares row counts
+
+## Share
+Share… | file.share | | AT,NEW | send the file, a copy, a read-only copy or a published app
+Email Database | file.email | | SUITE | through Anne's Post
+Publish to Server… | file.publishServer | | ACC,PA | moves tables to a server and links them (the old upsizing wizard, for PostgreSQL, MySQL, SQL Server and the suite relay)
+Split Database… | file.split | | ACC | tables into a back-end file, everything else into a front end with linked tables
+Synchronize Copies | file.sync | | ACCX,FM | two-way synchronization of offline copies with conflict review; replaces Jet replication and briefcase
+Collect Data by Email… | file.collectByEmail | | ACCX | sends a form in an e-mail and merges the replies into a table
+Shared Form Link… | file.shareForm | | AT,QB,NEW | a web form that adds records to a table, through the suite relay
+
+## Print
+Print… | file.print | Ctrl+P | ALL | active object or selected records
+Quick Print | file.quickPrint | | ACC | default printer, no dialog
+Print Preview | file.printPreview | | ACC,ALL |
+Page Setup… | file.pageSetup | | ACC |
+Print Labels… | file.printLabels | | WKS,ACC | same as Create ▸ Labels, from the File tab
+Export as PDF… | file.exportPdf | | ACC | report, form or datasheet; sends to Anne's Folio optionally
+
+## Info
+Database Properties… | file.properties | | ACC | title, author, company, version, custom properties
+Database Statistics | file.statistics | | FM,SQLS,NEW | file size, objects, rows, indexes, free pages, fragmentation, largest tables
+View and Edit Database Info | file.info | | ACC | Backstage Info page: compact, encrypt, properties, health
+Database Health | file.health | | NEW | integrity, fragmentation, broken links, compile errors, missing references, at a glance
+
+## Objects
+Rename Object | file.renameObject | | ACC | name AutoCorrect updates everything that refers to it
+Copy Object… | file.copyObject | | ACC |
+Delete Object | file.deleteObject | | ACC | journaled; can be undone
+Hide Object | file.hideObject | | ACC |
+Object Properties… | file.objectProperties | | ACC |
+Object History | file.objectHistory | | NEW | every saved design of a form, report, query or module; compare and restore
+
+## Close
+Close Object | file.closeObject | Ctrl+W, Ctrl+F4 | ALL |
+Close All Objects | file.closeAll | | ACC |
+Close Database | file.closeDatabase | | ACC |
+Exit | file.exit | Alt+F4 | ALL |
+
+## Options
+Options… | file.options | | ACC | current database, datasheet, object designers, proofing, language, client settings
+Current Database Options… | file.currentDbOptions | | ACC | title, icon, startup form, navigation pane, ribbon, compact on close, track name AutoCorrect
+Startup Options… | file.startup | | ACCX | the 2003 Startup dialog under its old name
+Export Settings… | file.exportSettings | | SUITE |
+Import Settings… | file.importSettings | | SUITE | also reads an Access-style keyboard list
+Portable Mode | file.portable | | SUITE | settings kept beside the program (desktop)
+
+@tab home | Home | Views, clipboard, sorting and filtering, records, find, text formatting
+
+## Views
+View | view.objectView | | ACC | menu: Form, Datasheet, Layout, Design, Report, Print Preview, SQL, as the object allows
+Datasheet View | view.datasheet | | ACC,ALL |
+Form View | view.form | | ACC,FM |
+Layout View | view.layout | | ACC | design changes with live data
+Design View | view.design | | ACC,DB,PDX |
+Report View | view.report | | ACC |
+SQL View | view.sql | | ACC,LOB |
+Browse Mode | view.browseMode | | FM | FileMaker-style modes for people who think in them: Browse, Find, Layout, Preview; the FileMaker key set (Ctrl+B, Ctrl+F, Ctrl+L, Ctrl+U) can be loaded in Customize Keyboard
+Find Mode | view.findMode | | FM | enter criteria in the form itself (same as Filter by Form)
+Layout Mode | view.layoutMode | | FM | same as Layout View
+Preview Mode | view.previewMode | | FM | same as Print Preview
+
+## Clipboard
+Cut | edit.cut | Ctrl+X | ALL |
+Copy | edit.copy | Ctrl+C | ALL |
+Paste | edit.paste | Ctrl+V | ALL |
+Paste Append | edit.pasteAppend | | ACC | copied records added as new records
+Paste Special… | edit.pasteSpecial | | ACC | text, HTML, CSV, as a new table
+Paste as New Table… | edit.pasteAsTable | | AT,NEW | from a spreadsheet, web page or CSV; types detected
+Format Painter | edit.formatPainter | | ACC | in Layout and Design views
+
+## Sort & Filter
+Sort Ascending | sort.ascending | | ACC,ALL |
+Sort Descending | sort.descending | | ACC,ALL |
+Remove Sort | sort.clear | | ACC |
+Advanced Sort… | sort.advanced | | FM,AT | several fields, custom value lists
+Filter | filter.menu | | ACC | column filter list with values, text and date filters
+Selection | filter.bySelection | | ACC | equals, does not equal, contains, does not contain the selected value
+Filter Excluding Selection | filter.excludingSelection | | ACC |
+Filter by Form | filter.byForm | | ACC,PDX | query by example in the form; several OR tabs
+Advanced Filter/Sort… | filter.advanced | | ACC | a query grid for the filter
+Apply/Toggle Filter | filter.toggle | | ACC |
+Clear All Filters | filter.clearAll | | ACC |
+Save Filter as Query… | filter.saveAsQuery | | ACC |
+Load Filter from Query… | filter.loadFromQuery | | ACC |
+Natural-Language Filter… | filter.natural | | QA,GENAI,NEW | "members who joined after 2020 and live in Gaithersburg"; shows the filter it built
+Constrain Found Set | filter.constrain | | FM | narrows the current filter
+Extend Found Set | filter.extend | | FM | widens the current filter
+Show Omitted Only | filter.showOmitted | | FM | inverts the current filter
+Omit Record | filter.omit | | FM | hides the current record from this view
+Saved Views… | filter.savedViews | | AT,NOT | named combinations of filter, sort, grouping, column order and hidden fields
+
+## Records
+New Record | record.new | Ctrl++ | ACC,ALL |
+Save Record | record.save | Shift+Enter | ACC |
+Delete Record | record.delete | Ctrl+- | ACC,ALL | journaled; Undo Delete restores it
+Undo Delete | record.undoDelete | | NEW | brings back deleted records from the journal, with their related records
+Duplicate Record | record.duplicate | Ctrl+Alt+D | FM,AT |
+Refresh | record.refresh | F9 | ACC |
+Requery | record.requery | Shift+F9 | ACC |
+Refresh All | record.refreshAll | | ACC |
+Totals Row | record.totals | | ACC | sum, average, count, minimum, maximum, standard deviation, variance per column
+Spelling | record.spelling | F7 | ACC,SUITE | shared dictionaries with Anne's Pen
+Insert Current Date | record.insertDate | Ctrl+; | ACC |
+Insert Current Time | record.insertTime | Ctrl+Shift+; | ACC |
+Same Value as Previous Record | record.dittoValue | Ctrl+' | ACC |
+Insert Default Value | record.defaultValue | Ctrl+Alt+Space | ACC |
+Undo Field Edit | record.undoField | Esc | ACC |
+Undo Record Edit | record.undoRecord | | ACC |
+Zoom Box | record.zoom | Shift+F2 | ACC | large editor for the current value
+Lock Record | record.lock | | FM,NEW | stops edits to a record until unlocked (with permission)
+Record History | record.history | | AT,NEW | every change to this record, who and when, from the journal; restore any version
+Comments on Record | record.comments | | AT,NOT,NEW | threaded notes beside a record
+More | record.more | | ACC | menu: row height, column width, hide, unhide, freeze, unfreeze, subdatasheet
+
+## Datasheet
+Hide Fields | sheet.hideFields | | ACC,AT |
+Unhide Fields… | sheet.unhideFields | | ACC |
+Freeze Fields | sheet.freeze | | ACC |
+Unfreeze All Fields | sheet.unfreeze | | ACC |
+Row Height… | sheet.rowHeight | | ACC |
+Field Width… | sheet.fieldWidth | | ACC | best fit
+Subdatasheet | sheet.subdatasheet | | ACC | insert, remove, expand all, collapse all
+Group By | sheet.groupBy | | AT,NOT | collapsible groups in the datasheet
+Color Rows by Rule… | sheet.colorRows | | AT,NEW |
+Alternate Row Color | sheet.altRowColor | | ACC |
+Gridlines | sheet.gridlines | | ACC |
+Wrap Cell Text | sheet.wrap | | AT |
+
+## Find
+Find… | edit.find | Ctrl+F | ALL | current field or whole datasheet, match part, case, format
+Replace… | edit.replace | Ctrl+H | ALL |
+Find Next | edit.findNext | Shift+F4 | ACC |
+Go To | edit.goTo | | ACC | first, previous, next, last, new
+Go to Record Number… | edit.goToRecord | F5 | ACC |
+Select | edit.select | | ACC | select record, select all records
+Select All | edit.selectAll | Ctrl+A | ALL |
+Find Across Database… | edit.findEverywhere | Ctrl+Shift+F | NEW | every table, query result, object name, property, macro and module
+
+## Text Formatting
+Font | format.font | | ACC |
+Font Size | format.fontSize | | ACC |
+Bold | format.bold | Ctrl+B | ACC |
+Italic | format.italic | Ctrl+I | ACC |
+Underline | format.underline | Ctrl+U | ACC |
+Font Color | format.fontColor | | ACC |
+Fill Color | format.fillColor | | ACC |
+Align Left | format.alignLeft | | ACC |
+Center | format.center | | ACC |
+Align Right | format.alignRight | | ACC |
+Rich Text | format.richText | | ACC | for Long Text fields with rich text enabled
+Bullets and Numbering | format.bullets | | ACC |
+Text Direction | format.textDirection | | ACC |
+
+## Undo
+Undo | edit.undo | Ctrl+Z | ALL | design changes and, through the journal, record changes
+Redo | edit.redo | Ctrl+Y | ALL |
+Undo History… | edit.undoHistory | | NEW | the journal as a list; step back to any point
+
+@tab create | Create | Tables, queries, forms, reports, labels, views, apps, macros and modules
+
+## Tables
+Table | create.table | | ACC,ALL | new table in Datasheet view
+Table Design | create.tableDesign | | ACC,DB,PDX |
+Table from Description… | create.tableFromDescription | | GENAI,NEW | AI drafts fields and types; review before creating
+Table from Template… | create.tableFromTemplate | | ACC,AT | Application Parts: contacts, comments, tasks, issues, users
+Table from Clipboard | create.tableFromClipboard | | AT,NEW |
+List (Lookup Values) | create.valueList | | FM,ACC | reusable value list for lookups and option groups
+Linked Table… | create.linkedTable | | ACC | to another database, a server, a CSV or a spreadsheet
+
+## Queries
+Query Wizard… | create.queryWizard | | ACC | simple, crosstab, find duplicates, find unmatched
+Query Design | create.queryDesign | | ACC,PDX | the grid: query by example
+SQL Query | create.sqlQuery | | LOB,SQLS,DBV | opens the SQL editor directly
+Query from Question… | create.queryFromQuestion | Ctrl+Alt+Q | QA,GENAI,NEW | plain English to SQL; shows the SQL and the grid before running
+View (server) | create.serverView | | SQLS,PG,MY | CREATE VIEW on a connected server
+Stored Procedure | create.procedure | | SQLS,PG,ACCX | server procedure, or a saved parameter query (Access ADP-style)
+Trigger | create.trigger | | SQLS,PG,SQLT | server or SQLite trigger; Access-style data macros are on Table ▸ Data Macros
+
+## Forms
+Form | create.form | | ACC,ALL | from the selected table or query
+Form Design | create.formDesign | | ACC |
+Blank Form | create.blankForm | | ACC |
+Form Wizard… | create.formWizard | | ACC,DB |
+Navigation Form | create.navigationForm | | ACC | tabs of forms and reports
+Switchboard… | create.switchboard | | ACCX | classic button menu form; also imported from old databases
+Multiple Items | create.multipleItems | | ACC |
+Datasheet Form | create.datasheetForm | | ACC |
+Split Form | create.splitForm | | ACC | form above, datasheet below
+Modal Dialog | create.modalDialog | | ACC |
+Card View | create.cardView | | AT,FM,NEW | records as cards; phone-friendly
+Gallery View | create.galleryView | | AT,NOT | cards with a picture field large
+Kanban Board | create.kanban | | AT,NOT,QB | records as cards in columns by a choice field; drag to change status
+Calendar View | create.calendar | | AT,NOT,QB | records on a calendar by a date field
+Timeline View | create.timeline | | AT,NOT | records as bars between two dates (Gantt-style)
+Map View | create.mapView | | AT,QB,NEW | records on a map by address or coordinates
+Form from Description… | create.formFromDescription | | GENAI,NEW | AI lays out a form for the table; opens in Layout view
+Data Entry Screen (dBASE style) | create.screen | | DB,FOX,CLP | character-grid form with @…SAY…GET layout, for people who know it; saved as an ordinary form
+Card Stack | create.cardStack | | HC | HyperCard-style stack of cards with buttons and scripts, saved as a form with navigation
+
+## Reports
+Report | create.report | | ACC,ALL |
+Report Design | create.reportDesign | | ACC |
+Blank Report | create.blankReport | | ACC |
+Report Wizard… | create.reportWizard | | ACC,DB |
+Labels… | create.labels | | ACC,WKS | label makers for standard sheet sizes; name tags
+Mailing Labels from Anne's Pen Merge | create.labelsMerge | | SUITE | sends the records to Anne's Pen's mail merge
+Form Letters… | create.formLetters | | WKS,QA | merges records into an Anne's Pen document
+Chart… | create.chart | | ACC | modern chart from a table or query
+Pivot Table… | create.pivot | | ACCX,XL | interactive cross-tabulation (Access PivotTable view restored)
+Pivot Chart… | create.pivotChart | | ACCX,XL |
+Dashboard… | create.dashboard | | QB,PA,NEW | tiles of totals, charts and lists from queries
+Report from Description… | create.reportFromDescription | | GENAI,NEW |
+
+## Apps
+App Page | create.appPage | | AT,PA,ACCX | interface page for a phone or browser app (successor to data access pages and Access web apps)
+Data Access Page (import) | create.dataAccessPage | | ACCX | reads an Access 2000–2003 data access page and rebuilds it as an app page
+Automation… | create.automation | | AT,QB,PA | when a record changes or on a schedule: send a message, update records, call a web hook
+
+## Macros & Code
+Macro | create.macro | | ACC |
+Data Macro… | create.dataMacro | | ACC | before change, before delete, after insert, after update, after delete
+Module | create.module | | ACC | Basic code module (VBA-compatible)
+Class Module | create.classModule | | ACC |
+Script (JavaScript) | create.script | | SUITE | suite macro language with the database API
+Program (xBase) | create.prg | | DB,FOX,CLP | xBase program file run by the xBase interpreter
+ScriptMaker Script | create.fmScript | | FM | FileMaker-style step list, saved as a macro
+Visual Basic | create.vbe | | ACC | opens the code editor (same as Developer ▸ Code Editor)
+
+@tab ext | External Data | Import, link and export data; saved operations; connections
+
+## Import & Link
+New Data Source | ext.newSource | | ACC | menu of every source below
+Saved Imports… | ext.savedImports | | ACC |
+Linked Table Manager… | ext.linkedTables | | ACC | relink, refresh, change source; finds moved files
+Import Access Database… | ext.importAccess | | ACC | tables, queries, forms, reports, macros, modules from .accdb, .mdb, .accde (data only), .adp (forms and reports)
+Import Spreadsheet… | ext.importSheet | | ACC | .xlsx, .xls, .ods, .csv, Lotus .wk1/.wks, Quattro .wb1; also from Anne's Grid
+Import Text… | ext.importText | | ACC | delimited or fixed width, encoding, date order, specs saved
+Import XML… | ext.importXml | | ACC | with XSD; structure and data
+Import JSON… | ext.importJson | | MDB,NEW | nested objects flattened into related tables or kept as JSON fields
+Import HTML Table… | ext.importHtml | | ACC |
+Import from Web Page… | ext.importWebPage | | XL,NEW | finds the tables on a page; Power Query-style preview
+Import dBASE / FoxPro / Clipper… | ext.importDbf | | ACC,DB,FOX,CLP | .dbf with .dbt, .fpt, memo files, .ndx, .mdx, .cdx, .idx, .ntx indexes; code pages
+Import Paradox… | ext.importParadox | | ACCX,PDX | .db, .px, .mb, secondary indexes, validity checks (.val)
+Import FileMaker… | ext.importFileMaker | | FM | from FileMaker exports (.fmp12 through its XML, Merge, .tab, .xlsx); direct reading of .fp3/.fp5 where public information allows
+Import Lotus Approach… | ext.importApproach | | APR | the .dbf tables; .apr views as far as known
+Import Works Database… | ext.importWorks | | WKS | .wdb (Works 2–9)
+Import Q&A… | ext.importQA | | QA | .dtf files, where the format is known; otherwise from Q&A's ASCII export
+Import Other Historic Format… | ext.importHistoric | | RB,DE,A4,PCF,RFX | R:BASE, DataEase, Alpha Four, PC-File, Reflex, Btrieve, dataflex: direct where documented, otherwise their text exports with saved specs
+Import SQLite / DuckDB… | ext.importSqlite | | SQLT,DBX |
+Import LibreOffice Base (.odb)… | ext.importOdb | | LOB | embedded HSQLDB or Firebird data, queries, forms, reports
+Import SQL Script… | ext.importSqlScript | | MY,PG,SQLS | runs a dump in a sandbox and keeps the tables; dialect detected
+Import Parquet / Arrow / Avro… | ext.importColumnar | | DBX,NEW |
+Import Outlook / Address Book… | ext.importContacts | | ACC | vCard, CSV from mail programs, Anne's Post address book
+Import Calendar (.ics)… | ext.importIcs | | NEW |
+Import GEDCOM… | ext.importGedcom | | GEN,NEW | individuals, families, events, sources and citations into related tables; GEDCOM 5.5.1 and 7
+Import MongoDB / BSON… | ext.importBson | | MDB | mongoexport JSON and mongodump BSON
+Import from Server… | ext.importServer | | ACC,SQLS | ODBC (desktop), PostgreSQL, MySQL, SQL Server, Oracle, Firebird
+Import from SharePoint or Web List… | ext.importWebList | | ACC | SharePoint lists, Airtable, Notion and other web tables through their APIs or CSV exports
+Link to Table… | ext.link | | ACC | the same sources, linked rather than copied
+
+## Export
+Saved Exports… | ext.savedExports | | ACC |
+Export to Spreadsheet… | ext.exportSheet | | ACC | .xlsx, .ods, .csv; with formatting and layout optionally
+Open in Anne's Grid | ext.toGrid | | SUITE | the active table or query as a live linked sheet
+Export Text… | ext.exportText | | ACC |
+Export XML… | ext.exportXml | | ACC |
+Export JSON… | ext.exportJson | | NEW |
+Export HTML… | ext.exportHtml | | ACC |
+Export PDF or XPS… | ext.exportPdf | | ACC |
+Export to Access Database… | ext.exportAccess | | ACC | .accdb or .mdb
+Export dBASE / FoxPro… | ext.exportDbf | | ACC,DB | dBASE III, IV, 5 or FoxPro .dbf with memo file
+Export Paradox… | ext.exportParadox | | ACCX,PDX |
+Export SQLite… | ext.exportSqlite | | SQLT |
+Export SQL Script… | ext.exportSql | | MY,PG | dialect: SQLite, PostgreSQL, MySQL, SQL Server, Oracle, Access SQL
+Export Parquet… | ext.exportParquet | | DBX |
+Export GEDCOM… | ext.exportGedcom | | GEN,NEW |
+Word Merge (Anne's Pen) | ext.wordMerge | | ACC,SUITE |
+Export to Anne's Press | ext.toPress | | SUITE | catalogs and directories laid out from records
+Export to Anne's Loom | ext.toLoom | | SUITE | a static, searchable web directory from a query
+Email Records… | ext.email | | ACC,SUITE | as attachment or table in the body through Anne's Post
+
+## Connections
+Connections… | ext.connections | | DBV,SQLS | saved connections, credentials in the platform keychain
+ODBC Data Sources… | ext.odbc | | ACC | desktop only
+Test Connection | ext.testConnection | | DBV |
+Pass-Through Settings… | ext.passThrough | | ACC |
+Web Service / REST Source… | ext.rest | | PA,QB,NEW | a JSON API as a read or read-write table
+Watch Folder… | ext.watchFolder | | NEW | imports CSV or JSON files dropped into a folder
+
+@tab dbtools | Database Tools | Compact and repair, relationships, analysis, documentation, migration, add-ins
+
+## Tools
+Compact and Repair Database | dbtools.compactRepair | | ACC,SUITE | the classic command; keeps a copy before it starts
+Compact on Close | dbtools.compactOnClose | | ACC | toggle
+Run Macro… | dbtools.runMacro | | ACC |
+Code Editor | dbtools.codeEditor | | ACC | same as Developer ▸ Code Editor
+
+## Relationships
+Relationships | dbtools.relationships | | ACC,PDX | diagram; referential integrity, cascade update and delete, join types
+Entity-Relationship Diagram | dbtools.erDiagram | | DBV,MY,ORA | crow's-foot or Chen notation, export as SVG, PNG or to Anne's Folio
+Object Dependencies | dbtools.dependencies | | ACC | what uses this object, and what it uses
+Suggest Relationships | dbtools.suggestRelationships | | NEW | from matching names, types and values; review before creating
+
+## Analyze
+Database Documenter… | dbtools.documenter | | ACC | every property of every object, as a report or a document for Anne's Pen
+Analyze Performance | dbtools.analyzePerformance | | ACC | missing indexes, unindexed joins, slow queries, with fixes applied on request
+Analyze Table (Normalize)… | dbtools.analyzeTable | | ACC | splits repeated data into related tables
+Data Profiler | dbtools.profile | | DBV,NEW | per column: types, nulls, distinct values, patterns, outliers, length, histogram
+Schema Compare… | dbtools.schemaCompare | | SQLS,TOAD | two databases; script of differences
+Data Compare… | dbtools.dataCompare | | SQLS,TOAD | rows that differ between two tables or databases
+Query Statistics | dbtools.queryStats | | SQLS,PG | slowest and most frequent queries, with plans
+Index Advisor | dbtools.indexAdvisor | | SQLS,NEW | suggested indexes from the query history, with estimated benefit
+
+## Move Data
+Move to Server… | dbtools.moveToServer | | ACC | upsizing wizard: tables to PostgreSQL, MySQL, SQL Server, SQLite server or the suite relay
+Migrate from Other Program… | dbtools.migrate | | NEW | one wizard for Access, dBASE, FoxPro, Paradox, FileMaker, Approach, Works, Q&A and the rest: data, relationships, forms, reports, macros, with a report of what was converted
+Migrate to Other Program… | dbtools.migrateOut | | NEW | the reverse, so nobody is locked in
+Convert Macros to Code | dbtools.convertMacros | | ACC |
+Convert xBase Program to Basic or Script | dbtools.convertPrg | | NEW | best-effort translation of .prg code with a list of lines to check
+
+## Administer
+Add-ins | dbtools.addins | | ACC | manager
+Switchboard Manager… | dbtools.switchboardManager | | ACCX |
+Make Locked Application… | dbtools.makeLocked | | ACC | same as File ▸ Save as Application (locked)
+Encode/Decode Database (Jet 3) | dbtools.encodeJet | | ACCX | for very old .mdb files
+Convert Database Version | dbtools.convertVersion | | ACC |
+Users Logged In | dbtools.usersLoggedIn | | ACC,SQLS | from the lock file or the server; send a message, ask to close
+Clear Stale Lock | dbtools.clearLock | | ACC | removes an abandoned .ldb, .laccdb or .qbase lock after checking no one holds it
+Jobs and Schedules… | dbtools.jobs | | SQLS,PG | scheduled queries, exports, backups and automations
+Audit Log | dbtools.auditLog | | SQLS,NEW | who changed what, from the journal
+
+@tab table | Table | Fields, keys, indexes, validation, lookups, data macros (contextual: table Datasheet and Design views)
+
+## Fields
+Add Field | table.addField | | ACC | menu of types: Short Text, Long Text, Number, Large Number, Date/Time, Date/Time Extended, Currency, AutoNumber, Yes/No, OLE Object, Hyperlink, Attachment, Calculated, Lookup, Multivalued, JSON, Rating, Choice, Duration, GPS location, Barcode, Rich Text, Formula
+Insert Rows | table.insertRow | | ACC | Design view
+Delete Rows | table.deleteRow | | ACC |
+Rename Field | table.renameField | | ACC | name AutoCorrect updates queries, forms, reports and code
+Field Size | table.fieldSize | | ACC |
+Data Type | table.dataType | | ACC | change type with a preview of values that will not convert
+Default Value | table.defaultValue | | ACC |
+Field Validation | table.fieldValidation | | ACC | rule and message
+Record Validation | table.recordValidation | | ACC |
+Test Validation Rules | table.testValidation | | ACC |
+Required | table.required | | ACC |
+Unique | table.unique | | ACC |
+Input Mask… | table.inputMask | | ACC |
+Format | table.format | | ACC |
+Caption | table.caption | | ACC |
+Description | table.description | | ACC |
+Calculated Field… | table.calculated | | ACC,FM | expression builder
+Auto-Enter Options… | table.autoEnter | | FM | serial number, creation and modification date and user, lookup value
+Field History | table.fieldHistory | | ACC,NEW | append-only history of a Long Text field, and of any field when enabled
+Expression Builder… | table.builder | Ctrl+F2 | ACC |
+
+## Keys & Indexes
+Primary Key | table.primaryKey | | ACC,ALL |
+Indexes… | table.indexes | | ACC,DB | single and multi-field, unique, ignore nulls, descending, full-text
+Full-Text Index… | table.fullText | | SQLT,PG,NEW | word search across text fields (SQLite FTS5)
+Foreign Key… | table.foreignKey | | SQLS,PG |
+Check Constraint… | table.check | | SQLS,PG |
+Rebuild Indexes | table.rebuildIndexes | | DB,SQLS | dBASE REINDEX and server REBUILD
+
+## Lookups
+Lookup Wizard… | table.lookupWizard | | ACC |
+Modify Lookups | table.modifyLookups | | ACC |
+Lookup Field to Related Table | table.lookupToTable | | NEW | converts a value-list lookup into a related table with a key
+Multivalued to Related Table | table.multivaluedToTable | | NEW | converts an Access multivalued field into a proper junction table
+
+## Data Macros
+Before Change | table.beforeChange | | ACC |
+Before Delete | table.beforeDelete | | ACC |
+After Insert | table.afterInsert | | ACC |
+After Update | table.afterUpdate | | ACC |
+After Delete | table.afterDelete | | ACC |
+Named Data Macro | table.namedMacro | | ACC |
+Rename/Delete Macro | table.renameMacro | | ACC |
+
+## Properties
+Property Sheet | table.propertySheet | | ACC | table properties: subdatasheet, filter, order by, orientation
+Table Relationships | table.relationships | | ACC | the table in the Relationships diagram
+Table Statistics | table.statistics | | NEW | row count, size, index sizes, last modified
+Exclude from AI | table.aiExclude | | NEW | marks fields (or a whole table) never to be sent to an AI service, not even their names
+Truncate Table… | table.truncate | | SQLS,PG | deletes every row after a confirmation and a snapshot
+Pack Table | table.pack | | DB,FOX | removes rows marked deleted (dBASE PACK) in .dbf files
+Recall Deleted Rows | table.recall | | DB,FOX | dBASE RECALL: unmarks deleted rows in .dbf files
+Zap Table… | table.zap | | DB,FOX | dBASE ZAP, with a snapshot first
+
+@tab query | Query | Query design, query types, the SQL editor, parameters, plans (contextual: Query Design and SQL views)
+
+## Results
+Run | query.run | Ctrl+Enter | ACC,ALL |
+View Results | query.view | | ACC | for action queries: preview the rows they would change
+Explain Plan | query.explain | Ctrl+Shift+E | SQLS,PG,MY | graphical and text plan, with suggestions
+Cancel Query | query.cancel | Ctrl+Break | SQLS,DBV |
+
+## Query Type
+Select | query.typeSelect | | ACC |
+Make Table | query.typeMakeTable | | ACC |
+Append | query.typeAppend | | ACC |
+Update | query.typeUpdate | | ACC |
+Crosstab | query.typeCrosstab | | ACC |
+Delete | query.typeDelete | | ACC |
+Union | query.typeUnion | | ACC |
+Pass-Through | query.typePassThrough | | ACC | sent to the server as written
+Data Definition | query.typeDdl | | ACC | CREATE, ALTER, DROP
+Upsert (Insert or Update) | query.typeUpsert | | PG,MY,SQLT | MERGE / ON CONFLICT
+Recursive (Tree) | query.typeRecursive | | PG,SQLS | common table expression for family trees, parts lists and org charts
+
+## Query Setup
+Show Table… | query.showTable | | ACC | add tables and queries
+Add Tables Pane | query.tablesPane | | ACC |
+Insert Rows | query.insertRows | | ACC |
+Delete Rows | query.deleteRows | | ACC |
+Insert Columns | query.insertColumns | | ACC |
+Delete Columns | query.deleteColumns | | ACC |
+Return (Top Values) | query.topValues | | ACC |
+Builder… | query.builder | | ACC |
+Parameters… | query.parameters | | ACC |
+Totals | query.totals | | ACC | Group By, Sum, Avg, Min, Max, Count, StDev, Var, First, Last, Expression, Where
+Property Sheet | query.propertySheet | | ACC |
+Table Names | query.tableNames | | ACC |
+
+## SQL Editor
+SQL Editor | query.sqlEditor | | ACC,SQLS,DBV | syntax highlighting, completion, formatting, error marks
+Format SQL | query.formatSql | Ctrl+Shift+Q | SQLS,DBV |
+Comment Lines | query.comment | | SQLS,DBV |
+Run Statement Under Cursor | query.runStatement | Ctrl+Alt+Enter | DBV,SQLS |
+Run Script | query.runScript | Alt+X | SQLS,DBV | every statement in order; stops at the first error, or continues
+Begin Transaction | query.begin | | SQLS,PG |
+Commit | query.commit | | SQLS,PG |
+Roll Back | query.rollback | | SQLS,PG |
+Auto-Commit | query.autoCommit | | DBV | toggle
+SQL Dialect | query.dialect | | NEW | Access SQL, ANSI-92, SQLite, PostgreSQL, MySQL, SQL Server, Oracle; translation on switch
+Translate SQL… | query.translate | | NEW | from one dialect to another, with notes on anything approximated
+Query History | query.history | | DBV,SQLS | every statement run, with timing and row counts
+Snippets… | query.snippets | | DBV,TOAD |
+Schema Browser | query.schemaBrowser | | DBV,SQLS,ORA | tables, views, columns, keys and indexes beside the editor
+Results to Grid / Text / File | query.resultsTarget | | SQLS |
+Result as Chart | query.resultsChart | | DBV,NEW |
+Pin Result | query.pinResult | | DBV | keeps a result tab when the query is run again
+
+## Query by Example
+Example Elements | query.qbeExample | | PDX | Paradox-style linking by example element names
+Check Mark Fields | query.qbeCheck | | PDX | check, check plus, check descending
+Answer Table | query.answerTable | | PDX | results to a named table, as Paradox's ANSWER
+
+@tab form | Form | Form and report design: controls, fields, layout, arrange, format (contextual: Layout and Design views)
+
+## Views
+Switch View | form.view | | ACC |
+Property Sheet | form.propertySheet | F4 | ACC |
+Add Existing Fields | form.fieldList | F8 | ACC |
+Tab Order… | form.tabOrder | | ACC |
+View Code | form.viewCode | | ACC |
+Convert Form's Macros to Code | form.convertMacros | | ACC |
+Subform in New Window | form.subformWindow | | ACC |
+
+## Controls
+Text Box | form.textBox | | ACC,ALL |
+Label | form.label | | ACC |
+Button | form.button | | ACC |
+Tab Control | form.tabControl | | ACC |
+Hyperlink | form.hyperlink | | ACC |
+Web Browser Control | form.webBrowser | | ACC |
+Navigation Control | form.navControl | | ACC |
+Option Group | form.optionGroup | | ACC |
+Page Break | form.pageBreak | | ACC |
+Combo Box | form.comboBox | | ACC |
+List Box | form.listBox | | ACC |
+Chart | form.chart | | ACC |
+Line | form.line | | ACC |
+Rectangle | form.rectangle | | ACC |
+Toggle Button | form.toggle | | ACC |
+Check Box | form.checkBox | | ACC |
+Option Button | form.optionButton | | ACC |
+Image | form.image | | ACC |
+Attachment | form.attachment | | ACC |
+Bound Object Frame | form.boundObject | | ACC | legacy OLE fields shown as their contents where recoverable
+Unbound Object Frame | form.unboundObject | | ACC |
+Subform/Subreport | form.subform | | ACC |
+Portal | form.portal | | FM | rows of related records inside a form (same as a continuous subform)
+Repeating Panel | form.repeatingPanel | | NEW | continuous cards inside a form, phone-friendly
+Signature Box | form.signature | | FM,NEW | captures a drawn signature into an image field
+Barcode / QR Scanner Field | form.scanner | | FM,QB,NEW | camera scan on phones; keyboard-wedge scanners on desktop
+Rating Control | form.rating | | AT | stars
+Progress Bar | form.progress | | NEW |
+Map Control | form.map | | NEW |
+Insert Picture | form.insertImage | | ACC |
+Control Wizards | form.controlWizards | | ACC | toggle
+ActiveX Control (import only) | form.activeX | | ACCX | recognized when importing; replaced with the nearest native control and reported
+
+## Header / Footer
+Logo | form.logo | | ACC |
+Title | form.title | | ACC |
+Date and Time | form.dateTime | | ACC |
+Page Numbers… | form.pageNumbers | | ACC | reports
+
+## Theme
+Themes | form.themes | | ACC,SUITE | suite themes shared with Anne's Pen, Grid and Stage
+Colors | form.themeColors | | ACC |
+Fonts | form.themeFonts | | ACC |
+AutoFormat (classic) | form.autoFormat | | ACCX | the 2003-era AutoFormat styles, as themes
+
+## Arrange
+Gridlines | form.gridlines | | ACC |
+Stacked | form.stacked | | ACC |
+Tabular | form.tabular | | ACC |
+Remove Layout | form.removeLayout | | ACC |
+Insert Above | form.insertAbove | | ACC |
+Insert Below | form.insertBelow | | ACC |
+Insert Left | form.insertLeft | | ACC |
+Insert Right | form.insertRight | | ACC |
+Select Layout | form.selectLayout | | ACC |
+Select Column | form.selectColumn | | ACC |
+Select Row | form.selectRow | | ACC |
+Merge | form.merge | | ACC |
+Split Vertically | form.splitV | | ACC |
+Split Horizontally | form.splitH | | ACC |
+Move Up | form.moveUp | | ACC |
+Move Down | form.moveDown | | ACC |
+Control Margins | form.margins | | ACC |
+Control Padding | form.padding | | ACC |
+Anchoring | form.anchoring | | ACC |
+Size/Space | form.sizeSpace | | ACC | to fit, to tallest, to shortest, to grid, to widest, to narrowest, equal spacing
+Align | form.align | | ACC | to grid, left, right, top, bottom
+Bring to Front | form.bringFront | | ACC |
+Send to Back | form.sendBack | | ACC |
+Snap to Grid | form.snapGrid | | ACC |
+Ruler | form.ruler | | ACC |
+Phone Preview | form.phonePreview | | NEW | shows the form at phone width; reflow check
+
+## Format
+Conditional Formatting… | form.conditional | | ACC | rules, data bars
+Quick Styles | form.quickStyles | | ACC |
+Change Shape | form.shape | | ACC |
+Shape Fill | form.shapeFill | | ACC |
+Shape Outline | form.shapeOutline | | ACC |
+Shape Effects | form.shapeEffects | | ACC |
+Background Image | form.backgroundImage | | ACC |
+Alternate Row Color | form.altRowColor | | ACC |
+Number Format | form.numberFormat | | ACC |
+Accessibility Check | form.accessibility | | SUITE,NEW | labels, tab order, contrast, screen-reader names
+
+## Report Grouping
+Group & Sort | form.groupSort | | ACC | the Group, Sort and Total pane
+Totals | form.totals | | ACC |
+Hide Details | form.hideDetails | | ACC |
+Keep Together | form.keepTogether | | ACC |
+Running Sum | form.runningSum | | ACC |
+Sub-summary Part | form.subSummary | | FM | FileMaker-style summary band (same as a group footer)
+
+@tab macro | Macro | Macro design (contextual: macro and data-macro designers)
+
+## Tools
+Run | macro.run | | ACC |
+Single Step | macro.singleStep | | ACC |
+Convert Macros to Code | macro.convert | | ACC |
+Expand Actions | macro.expand | | ACC |
+Collapse Actions | macro.collapse | | ACC |
+Expand All | macro.expandAll | | ACC |
+Collapse All | macro.collapseAll | | ACC |
+Action Catalog | macro.catalog | | ACC |
+Show All Actions | macro.showAll | | ACC | including actions that need a trusted database
+Macro Names Column | macro.names | | ACCX | the pre-2007 grid view of macro groups
+Conditions Column | macro.conditions | | ACCX |
+Debug Macro | macro.debug | | FM,NEW | breakpoints and variable watch in macros
+
+@tab data | Data | Data quality: duplicates, cleanup, validation, transformation, history
+
+## Clean
+Find Duplicates… | data.findDuplicates | | ACC | exact
+Find Near Duplicates… | data.fuzzyDuplicates | | GEN,NEW | names, addresses and dates that probably mean the same thing; merge with review
+Merge Records… | data.mergeRecords | | GEN,AT,NEW | keeps one record, moves related records to it, records what was merged
+Find Unmatched… | data.findUnmatched | | ACC | rows with no partner in another table
+Trim and Clean Text | data.cleanText | | XL,NEW | spaces, non-printing characters, smart quotes
+Change Case | data.changeCase | | XL,FM |
+Split Field… | data.splitField | | XL,NEW | by delimiter, position or pattern (names, addresses)
+Combine Fields… | data.combineFields | | XL,NEW |
+Standardize Dates… | data.standardizeDates | | GEN,NEW | free-text dates ("abt 1850", "3 Mar 1902") into date fields with a precision flag
+Standardize Addresses… | data.standardizeAddresses | | NEW | offline rules; optional postal lookup service
+Fill Down | data.fillDown | | XL |
+Find and Replace by Pattern… | data.regexReplace | | DBV,NEW | regular expressions with preview
+
+## Validate
+Validate All Records | data.validateAll | | NEW | runs every validation rule on existing data; lists violations
+Referential Integrity Check | data.checkIntegrity | | ACC,NEW | orphaned child records and broken keys, with fixes
+Outlier Report | data.outliers | | NEW | values far from the rest of the column
+Type Mismatch Report | data.typeMismatch | | NEW | text in number fields, impossible dates
+
+## Transform
+Unpivot Columns… | data.unpivot | | XL | columns into rows (Power Query style)
+Pivot Column… | data.pivotColumn | | XL |
+Group and Summarize… | data.groupSummarize | | XL |
+Append Tables… | data.appendTables | | ACC,XL |
+Merge Tables (join)… | data.mergeTables | | XL |
+Transform Steps… | data.steps | | XL,NEW | a saved list of steps re-run on each refresh (Power Query style)
+Generate Test Data… | data.testData | | DBV,NEW | realistic fake rows that obey types, keys and rules
+
+## History
+Change Journal | data.journal | | NEW | every insert, update and delete, browsable and searchable
+Show Table as of… | data.asOf | | SQLS,NEW | the table as it was at a date and time (temporal view from the journal)
+Restore Rows from Journal… | data.restoreRows | | NEW |
+Data Lineage | data.lineage | | NEW | which import, query or automation produced a row
+
+@tab recover | Repair & Recovery | Diagnose, repair and recover damaged databases, deleted records and lost objects
+
+## Diagnose
+Check Integrity | recover.check | | SQLT,SQLS,NEW | page structure, indexes, keys, system tables, code project; read-only
+Diagnose File… | recover.diagnose | | NEW | for any database file, even one that will not open: format, version, damaged pages, lost space, encryption
+Recovery Report | recover.report | | SUITE | what was found, what was repaired, what could not be saved
+Compare with Backup… | recover.compareBackup | | NEW | objects and rows that differ from a backup or snapshot
+
+## Repair
+Compact and Repair | recover.compactRepair | | ACC,SUITE | same as Database Tools ▸ Compact and Repair
+Deep Repair… | recover.deepRepair | | NEW | rebuilds the file from its readable pages into a new file; the original is never written
+Rebuild All Indexes | recover.rebuildIndexes | | DB,SQLS | including dBASE .ndx/.mdx/.cdx and Paradox .px
+Repair Table Header | recover.repairHeader | | DB,FOX,NEW | .dbf record count, header length and field descriptors recomputed from the data
+Repair Memo File | recover.repairMemo | | DB,FOX,NEW | .dbt and .fpt block chains
+Repair Paradox Table | recover.repairParadox | | PDX,NEW | block chains and the primary index rebuilt
+Repair System Tables | recover.repairSystem | | ACC,NEW | Jet/ACE MSysObjects and catalog rebuilt from the data pages
+Decompile Code | recover.decompile | | ACC | discards compiled code so the source is recompiled (Access /decompile)
+Repair Code Project | recover.repairCode | | NEW | recovers module source from a damaged VBA project storage
+Remove Broken References | recover.brokenReferences | | ACC,NEW | missing libraries listed and replaced or removed
+Fix Lock File | recover.fixLock | | ACC | same as Database Tools ▸ Clear Stale Lock
+Undo Last Repair | recover.undoRepair | | NEW | every repair writes a new file; this switches back
+
+## Recover
+Recover Deleted Records… | recover.deletedRecords | | DB,NEW | rows still present in free pages (Jet/ACE, SQLite freelist and WAL, dBASE delete flag, Paradox free blocks), shown for review
+Recover Tables from Damaged File… | recover.tables | | NEW | page-level reading of tables that the catalog no longer lists
+Recover Forms, Reports and Macros… | recover.objects | | ACC,NEW | from damaged storage, from an earlier text export, or from Access SaveAsText files
+Recover from Lock or Journal Files | recover.fromJournal | | SQLT,NEW | SQLite rollback journal and WAL frames; the .qbase journal
+Recover Data from Any File… | recover.carve | | SUITE,NEW | carves database pages and tables out of disk images, backups, e-mail attachments, archives and other files
+Salvage to New Database | recover.salvage | | NEW | everything readable written to a new .qbase with a report
+Export Readable Data as CSV | recover.exportCsv | | NEW | last resort: each table to CSV, as far as it can be read
+
+## Protect
+Automatic Snapshots | recover.autoSnapshots | | NEW | toggle; frequency and how many to keep
+Write-Ahead Journal | recover.journal | | SQLT,NEW | toggle, on by default: every change can be undone or replayed
+Verify on Open | recover.verifyOnOpen | | NEW | quick integrity check when a file opens
+Repair Before It Breaks | recover.monitor | | NEW | warns when fragmentation, size limits (2 GB for .mdb/.accdb) or index damage are near
+
+@tab xbase | xBase | dBASE, FoxPro and Clipper commands: the dot prompt and work areas, for people who learned them
+
+## Console
+Dot Prompt | xbase.dotPrompt | Ctrl+Shift+D | DB,FOX,CLP | command window: USE, LIST, DISPLAY, BROWSE, EDIT, APPEND, REPLACE, LOCATE, SEEK, SET FILTER, INDEX ON, REPORT FORM, ? and more, on any table in the database
+Command Window | xbase.commandWindow | | FOX | the FoxPro equivalent, with history
+Assistant (menu-driven) | xbase.assist | | DB | the dBASE III Plus ASSIST menus: Set Up, Create, Update, Position, Retrieve, Organize, Modify, Tools
+Control Center | xbase.controlCenter | | DB | the dBASE IV panels: Data, Queries, Forms, Reports, Labels, Applications
+Run Program… | xbase.runProgram | | DB,FOX,CLP | DO program.prg
+Compile Program… | xbase.compile | | CLP,FOX | checks syntax and saves a compiled form
+
+## Work Areas
+Select Work Area | xbase.selectArea | | DB,FOX | SELECT
+Use Table | xbase.use | | DB,FOX | USE … INDEX … ALIAS
+Set Relation | xbase.setRelation | | DB,FOX |
+Set Order | xbase.setOrder | | DB,FOX |
+Browse | xbase.browse | | DB,FOX | the classic full-screen browse
+Edit | xbase.edit | | DB |
+Append | xbase.append | | DB |
+Replace… | xbase.replace | | DB | REPLACE field WITH expression FOR condition
+Locate / Continue | xbase.locate | | DB |
+Seek | xbase.seek | | DB |
+Count / Sum / Average | xbase.aggregate | | DB |
+Copy To… | xbase.copyTo | | DB | to a new table or a text file (SDF, DELIMITED)
+Set Commands… | xbase.setCommands | | DB,FOX | SET DELETED, SET EXACT, SET DATE, SET CENTURY and the rest, as a dialog
+
+@tab view | View | Navigation pane, windows, zoom, menus and ribbon, interface options
+
+## Navigation Pane
+Navigation Pane | view.navPane | F11 | ACC | toggle
+Navigate to Category | view.navCategory | | ACC | object type, tables and related views, created date, modified date, custom groups
+Search Navigation Pane | view.navSearch | Ctrl+Shift+S | ACC |
+Show Hidden Objects | view.showHidden | | ACC |
+Show System Objects | view.showSystem | | ACC |
+Custom Groups… | view.navCustomGroups | | ACC |
+Database Window (classic) | view.databaseWindow | | ACCX | the 1992–2003 tabbed Database window instead of the navigation pane
+Catalog Panel | view.catalog | | DB | dBASE IV-style catalog of files
+
+## Windows
+Tabbed Documents | view.tabbed | | ACC |
+Overlapping Windows | view.overlapping | | ACC |
+Next Window | view.nextWindow | Ctrl+F6 | ACC |
+Next Pane | view.nextPane | F6 | ACC |
+Tile Horizontally | view.tileH | | ACCX |
+Tile Vertically | view.tileV | | ACCX |
+Cascade | view.cascade | | ACCX |
+Arrange Icons | view.arrangeIcons | | ACCX |
+Split Window | view.split | | NEW | two views of one object, or table beside form
+Full Screen | view.fullScreen | Ctrl+Shift+F11 | NEW |
+
+## Zoom
+Zoom In | view.zoomIn | Ctrl+Alt+= | ALL |
+Zoom Out | view.zoomOut | Ctrl+Alt+- | ALL |
+Zoom… | view.zoom | | ACC |
+Zoom 100% | view.zoom100 | Ctrl+0 | ALL |
+Fit to Window | view.zoomFit | | ACC | print preview
+One Page / Two Pages / Multiple | view.pages | | ACC | print preview
+
+## Panes
+Status Bar | view.statusBar | | ACC |
+Field List Pane | view.fieldListPane | | ACC |
+Immediate Window | view.immediate | Ctrl+G | ACC |
+Object Dependencies Pane | view.dependenciesPane | | ACC |
+Record Details Pane | view.detailsPane | | AT,NEW | the current record expanded beside a datasheet
+AI Pane | view.aiPane | Ctrl+Alt+I | SUITE |
+
+## Menus
+Menus | view.menus | | SUITE | ribbon, classic menu bar, or both
+Classic Menu Layout | view.menuLayout | | SUITE | arguments: access2003, dbase3, dbase4, foxdos, vfp, paradoxdos, paradoxwin, filemaker, approach, works, base, ssms, dbeaver, all, complete
+Customize Menus… | view.customizeMenus | | SUITE |
+Customize Ribbon… | view.customizeRibbon | | SUITE |
+Customize Keyboard… | view.customizeKeyboard | | SUITE |
+Touch Mode | view.touchMode | | SUITE |
+Theme | view.theme | | SUITE | light, dark, high contrast, system
+
+## Quick Access Bar and search
+Search Commands | view.cmdSearch | Alt+Q | SUITE |
+Add All Choices to Quick Access Bar | view.qatAddAll | | SUITE |
+Quick Access Bar Position | view.qatPosition | | SUITE |
+Quick Access Bar Labels | view.qatLabels | | SUITE |
+Hide Quick Access Bar | view.qatHide | | SUITE |
+Show Quick Access Bar | view.qatShow | | SUITE | not in tabs
+
+@tab ai | AI | Ask questions of your data, design, write queries and code, clean data, diagnose damage; providers
+
+## Ask
+Ask Your Data… | ai.ask | Ctrl+Alt+A | QA,GENAI | plain-English questions answered from the database; shows the SQL it ran and the rows, never a made-up number
+Question to Query… | ai.toQuery | | GENAI | same as Create ▸ Query from Question
+Explain This Query | ai.explainQuery | Ctrl+Alt+X | GENAI | in plain English, clause by clause
+Improve This Query | ai.improveQuery | | GENAI | faster or clearer SQL, with the plan before and after
+Fix SQL Error | ai.fixSql | | GENAI | reads the error and the statement; proposes a correction
+Translate SQL Dialect… | ai.translateSql | | GENAI | AI-assisted version of Query ▸ Translate SQL for hard cases
+Summarize Records | ai.summarize | | GENAI | selected rows or a report, in a paragraph
+Intelligent Assistant (classic) | ai.qaAssistant | | QA | Q&A-style conversational query box, with its "teach" vocabulary of synonyms for your field names
+Teach Vocabulary… | ai.teach | | QA | synonyms and phrases for tables, fields and values used by Ask Your Data
+
+## Design
+Design Database… | ai.designDatabase | | GENAI,NEW | from a description: tables, fields, types, keys, relationships, sample forms and reports, as a reviewable plan
+Suggest Fields | ai.suggestFields | | GENAI,NEW |
+Suggest Normalization | ai.normalize | | GENAI,NEW | explains repeated data and offers Analyze Table steps
+Suggest Indexes | ai.suggestIndexes | | GENAI,NEW | from the query history; runs Index Advisor and explains it
+Build Form… | ai.buildForm | | GENAI,NEW |
+Build Report… | ai.buildReport | | GENAI,NEW |
+Write Validation Rule… | ai.validationRule | | GENAI,NEW | "phone numbers must have ten digits"
+Write Expression… | ai.expression | | GENAI,NEW | calculated fields and control sources from a description
+
+## Code
+Write Code… | ai.writeCode | | GENAI | Basic, JavaScript, data macro or xBase from a description
+Explain Code | ai.explainCode | | GENAI |
+Find Bugs | ai.findBugs | | GENAI |
+Convert Macro or Code… | ai.convertCode | | GENAI,NEW | VBA to JavaScript, xBase to Basic, FileMaker script to macro, with differences listed
+
+## Data
+Classify Records… | ai.classify | | GENAI,NEW | fills a choice field from text fields; review before saving
+Extract Fields from Text… | ai.extract | | GENAI,NEW | names, dates, places and amounts out of notes and memo fields into new fields
+Clean with AI… | ai.clean | | GENAI,NEW | spelling of names and places, consistent formatting; every change shown
+Match Records Across Tables… | ai.match | | GEN,GENAI,NEW | probable same person, organization or place; for genealogy and mailing lists
+Records from Documents… | ai.fromDocuments | | GENAI,NEW | registration forms, invoices, letters, census pages (via OCR in Anne's Folio or Lens) into rows
+Translate Field… | ai.translate | | GENAI |
+Run on Selection… | ai.batch | | NEW | any data command over many rows, with a cost estimate first
+
+## Repair
+Diagnose with AI | ai.diagnose | | NEW | reads the Diagnose File and Recovery Report results and explains, in plain language, what is wrong and the safest order of repairs
+Reconstruct Damaged Rows | ai.reconstruct | | NEW | proposes values for unreadable fields from surviving data and patterns; proposals are marked and never applied without review
+Explain Error Message | ai.explainError | | GENAI | any error, with the likely cause in this database
+
+## Providers
+Set Up AI… | ai.setup | | SUITE | wizard: on device, your computer, free tier, paid
+Providers and Models… | ai.providers | | SUITE |
+Active AI | ai.active | | SUITE |
+AI and Privacy | ai.privacy | | SUITE | what is sent: schema only, schema plus sample rows, or query results; schema-only by default
+Several AIs | ai.ensembleMode | | SUITE | Single, Master Combines Answers, Quaker Consensus
+Choose AIs… | ai.ensembleMembers | | SUITE |
+Show AI Discussion | ai.showDeliberation | | SUITE |
+AI History | ai.history | | SUITE | what was sent, to which service, and the result
+Stop AI | ai.stop | Esc | SUITE |
+Delete Downloaded Models | ai.deleteModels | | SUITE |
+
+@tab dev | Developer | Code editor, debugging, references, macros, scripts, object model, command line
+
+## Code
+Code Editor | dev.codeEditor | Alt+F11 | ACC | modules in Basic (VBA-compatible) or JavaScript
+Object Browser | dev.objectBrowser | | ACC |
+References… | dev.references | | ACC | libraries; missing references flagged
+Compile | dev.compile | | ACC |
+Run Sub/Function | dev.run | | ACC |
+Step Into | dev.stepInto | | ACC | F8 in the code editor
+Step Over | dev.stepOver | | ACC | Shift+F8 in the code editor
+Toggle Breakpoint | dev.breakpoint | | ACC | F9 in the code editor
+Watch… | dev.watch | | ACC |
+Locals | dev.locals | | ACC |
+Call Stack | dev.callStack | | ACC |
+
+## Macros
+Record Macro | dev.recordMacro | | SUITE |
+Stop Recording | dev.stopRecording | | SUITE |
+Macros… | dev.macros | Alt+F8 | SUITE |
+Macro Editor… | dev.macroEditor | | SUITE | JavaScript with the database API
+
+## Automation
+Script Console | dev.console | | SUITE |
+Object Model Reference | dev.objectModel | | ACC | Application, CurrentDb, DoCmd, Forms, Reports, Recordset equivalents
+Database API (REST) | dev.restApi | | PA,QB,NEW | desktop: serves the open database to other programs on this computer, with a token
+Command-Line Help | dev.cliHelp | | ACC | open, /compact, /repair, /x macro, /cmd, /runtime, /excl, /ro; export and import
+Export Command List (JSON) | dev.exportCommands | | SUITE |
+
+@tab help | Help | Help, shortcuts, menu map, migration guides, about
+
+## Help
+Help | help.contents | F1 | ALL |
+Keyboard Shortcuts | help.shortcuts | Ctrl+/ | ACC |
+Menu Map | help.menuMap | | SUITE | where each command is in every menu layout and on the ribbon
+Coming from Another Program | help.migrationGuides | | NEW | Access, dBASE, FoxPro, Paradox, FileMaker, Approach, Works, Q&A, Base, Airtable: what each command is called here
+SQL Reference | help.sql | | ACC |
+Functions Reference | help.functions | | ACC | expression and Basic functions, with the Access, xBase and SQL equivalents
+Supported Formats | help.formats | | NEW |
+Sample Databases | help.samples | | ACC,ALL | Northwind-style demo, class registration, family history
+What's New | help.whatsNew | | |
+Report a Problem | help.reportIssue | | |
+Check for Updates | help.checkUpdates | | | desktop and APK builds; opens the release page
+About Anne's Base | help.about | | ALL |
+
+# ORIGINS
+# code | name | kind
+ALL | Most database programs | -
+ACC | Microsoft Access | Windows desktop database, 1992–
+ACCX | Microsoft Access, retired features (database window, switchboards, data access pages, ADP projects, replication, user-level security, PivotTable view, web apps) | 1992–2018
+DB | dBASE (II, III, III Plus, IV, 5, Visual dBASE, dBASE PLUS) | DOS/Windows, 1980–
+FOX | FoxBASE, FoxPro and Visual FoxPro | DOS/Windows/Mac, 1984–2007
+CLP | Clipper and Harbour | DOS xBase compiler, 1985–
+PDX | Paradox (DOS and Windows) | 1985–
+FM | FileMaker Pro | Mac/Windows, 1985–
+APR | Lotus Approach | Windows, 1991–2014
+WKS | Microsoft Works database | Windows, 1987–2009
+QA | Symantec Q&A | DOS, 1985–1998; natural-language Intelligent Assistant
+RB | R:BASE | DOS/Windows, 1983–
+DE | DataEase | DOS/Windows, 1983–
+A4 | Alpha Four, Alpha Five, Alpha Anywhere | DOS/Windows, 1987–
+PCF | PC-File | DOS shareware, 1983–
+RFX | Borland Reflex | DOS, 1985–1990
+HC | HyperCard | Mac, 1987–2004
+LOB | LibreOffice Base and OpenOffice Base | cross-platform, 2003–
+KEX | Kexi | KDE, 2003–
+SQLS | SQL Server and SQL Server Management Studio | Microsoft
+ORA | Oracle Database and SQL Developer | Oracle
+PG | PostgreSQL and pgAdmin | open source
+MY | MySQL, MariaDB and MySQL Workbench | open source
+SQLT | SQLite and DB Browser for SQLite | open source
+DBX | DuckDB | open source, analytical
+DBV | DBeaver | cross-platform database tool
+TOAD | Toad | Quest database tools
+AT | Airtable | web, 2012–
+NOT | Notion databases | web
+QB | Quickbase, Zoho Creator and Knack | web low-code databases
+PA | Power Apps and Dataverse | Microsoft low-code
+MDB | MongoDB and Compass | document database
+XL | Spreadsheets with Power Query and PivotTables | Excel, LibreOffice Calc
+GEN | Genealogy databases (PAF, Legacy, RootsMagic, Gramps) | family history
+GENAI | AI database assistants and text-to-SQL tools | 2022–
+NEW | Anne's Base | not found in the programs surveyed here; may exist elsewhere
+SUITE | Anne's Office suite | shared with the sister apps

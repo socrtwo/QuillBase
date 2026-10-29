@@ -1,0 +1,864 @@
+# Anne's Base classic menu layouts — source file, read by scripts/gen-plan.py.
+# Every entry is a command id from commands-plan.src.txt; the generator fails if an id is unknown.
+#
+#   @layout <key> | <menu-bar name in View ▸ Classic Menu Layout> | <modeled on>
+#   = <Menu>                 starts a top-level menu
+#   > <Submenu>  …  <        a submenu (one level)
+#   ---                      separator
+#   <command id>
+#
+# The "AI" menu is the same in every layout and is appended before Help (or at the end) by the generator.
+# "All programs combined" is generated: the union of the layouts below, menu by menu, without duplicates.
+# Programs whose menus change with the object or mode (Access 2003's Format, Records and Query menus,
+# FileMaker's Records menu) are shown with every contextual menu present; the app shows each in its context.
+
+@layout access2003 | Access 2003 style | Microsoft Access 97–2003 menus (File, Edit, View, Insert, Format, Records, Query, Tools, Window, Help)
+= File
+file.new
+file.open
+> Get External Data
+ext.importAccess
+ext.importSheet
+ext.importText
+ext.link
+<
+file.closeDatabase
+---
+file.save
+file.saveAs
+ext.exportSheet
+---
+file.backup
+---
+file.pageSetup
+file.printPreview
+file.print
+---
+> Send To
+file.email
+<
+file.properties
+file.openRecent
+---
+file.exit
+= Edit
+edit.undo
+edit.redo
+---
+edit.cut
+edit.copy
+edit.paste
+edit.pasteSpecial
+edit.pasteAppend
+---
+record.delete
+edit.select
+edit.selectAll
+---
+edit.find
+edit.replace
+edit.goTo
+= View
+view.databaseWindow
+view.design
+view.datasheet
+view.form
+view.sql
+create.pivot
+create.pivotChart
+---
+sheet.subdatasheet
+form.propertySheet
+form.fieldList
+dev.codeEditor
+---
+view.showHidden
+view.showSystem
+view.arrangeIcons
+view.statusBar
+record.refresh
+= Insert
+create.table
+create.queryDesign
+create.form
+create.report
+create.dataAccessPage
+create.macro
+create.module
+create.classModule
+---
+record.new
+table.addField
+table.lookupWizard
+form.hyperlink
+form.unboundObject
+= Format
+format.font
+---
+sheet.rowHeight
+sheet.fieldWidth
+table.renameField
+sheet.hideFields
+sheet.unhideFields
+sheet.freeze
+sheet.unfreeze
+sheet.subdatasheet
+---
+form.autoFormat
+form.conditional
+form.align
+form.sizeSpace
+form.bringFront
+form.sendBack
+form.snapGrid
+= Records
+> Filter
+filter.byForm
+filter.bySelection
+filter.excludingSelection
+filter.advanced
+<
+> Sort
+sort.ascending
+sort.descending
+<
+filter.toggle
+filter.clearAll
+---
+record.save
+record.refresh
+= Query
+query.run
+query.showTable
+---
+query.typeSelect
+query.typeCrosstab
+query.typeMakeTable
+query.typeUpdate
+query.typeAppend
+query.typeDelete
+> SQL Specific
+query.typeUnion
+query.typePassThrough
+query.typeDdl
+<
+---
+query.parameters
+query.totals
+query.topValues
+= Tools
+record.spelling
+> Office Links
+ext.wordMerge
+ext.toGrid
+<
+dbtools.relationships
+> Analyze
+dbtools.analyzeTable
+dbtools.analyzePerformance
+dbtools.documenter
+<
+> Database Utilities
+dbtools.convertVersion
+dbtools.compactRepair
+file.backup
+ext.linkedTables
+file.split
+dbtools.switchboardManager
+dbtools.moveToServer
+dbtools.makeLocked
+dbtools.addins
+<
+> Security
+file.encrypt
+file.permissions
+file.importWorkgroup
+<
+> Replication
+file.sync
+<
+file.startup
+> Macro
+dev.codeEditor
+dbtools.runMacro
+dbtools.convertMacros
+<
+dbtools.addins
+---
+view.customizeMenus
+file.options
+= Window
+view.tileH
+view.tileV
+view.cascade
+view.arrangeIcons
+view.nextWindow
+= Help
+help.contents
+help.shortcuts
+help.samples
+help.checkUpdates
+help.about
+
+@layout dbase3 | dBASE III Plus ASSIST style | the dBASE III Plus ASSIST menu bar (Set Up, Create, Update, Position, Retrieve, Organize, Modify, Tools)
+= Set Up
+xbase.use
+xbase.selectArea
+query.showTable
+view.form
+file.closeDatabase
+file.exit
+= Create
+create.tableDesign
+create.screen
+create.queryDesign
+create.reportWizard
+create.labels
+create.prg
+= Update
+xbase.append
+xbase.edit
+xbase.browse
+xbase.replace
+record.delete
+table.recall
+table.pack
+= Position
+xbase.seek
+xbase.locate
+edit.goToRecord
+xbase.setOrder
+= Retrieve
+xbase.dotPrompt
+xbase.aggregate
+file.printPreview
+create.report
+create.labels
+= Organize
+table.indexes
+sort.advanced
+xbase.copyTo
+= Modify
+create.tableDesign
+create.screen
+create.queryDesign
+create.reportDesign
+= Tools
+xbase.setCommands
+file.revealInFolder
+file.saveAs
+ext.importDbf
+ext.exportDbf
+xbase.setRelation
+xbase.assist
+
+@layout dbase4 | dBASE IV Control Center style | the dBASE IV Control Center menu bar (Catalog, Tools, Exit) and its panels
+= Catalog
+view.catalog
+file.open
+file.new
+---
+xbase.controlCenter
+create.table
+create.queryDesign
+create.form
+create.report
+create.labels
+create.prg
+= Tools
+dev.macros
+dev.recordMacro
+ext.importDbf
+ext.exportDbf
+---
+file.revealInFolder
+xbase.setCommands
+file.permissions
+xbase.dotPrompt
+= Exit
+xbase.dotPrompt
+file.exit
+
+@layout foxdos | FoxPro 2.6 for DOS style | FoxPro 2.x for DOS (System, File, Edit, Database, Record, Program, Window)
+= System
+help.about
+help.contents
+dev.macros
+file.options
+= File
+file.new
+file.open
+file.closeDatabase
+file.save
+file.saveAs
+file.revertDesign
+---
+file.printPreview
+file.print
+file.exit
+= Edit
+edit.undo
+edit.redo
+edit.cut
+edit.copy
+edit.paste
+edit.selectAll
+edit.goTo
+edit.find
+edit.replace
+= Database
+xbase.use
+xbase.browse
+xbase.append
+xbase.copyTo
+sort.advanced
+table.indexes
+table.rebuildIndexes
+table.pack
+table.zap
+xbase.aggregate
+xbase.setCommands
+= Record
+xbase.append
+record.duplicate
+xbase.edit
+record.delete
+table.recall
+xbase.locate
+xbase.seek
+xbase.replace
+= Program
+xbase.runProgram
+xbase.compile
+dev.run
+dev.breakpoint
+xbase.commandWindow
+= Window
+view.nextWindow
+view.cascade
+xbase.commandWindow
+view.zoom
+
+@layout vfp | Visual FoxPro style | Visual FoxPro 9 (File, Edit, View, Format, Tools, Program, Window, Help)
+= File
+file.new
+file.open
+file.closeDatabase
+file.save
+file.saveAs
+file.revertDesign
+---
+ext.importDbf
+ext.importSheet
+ext.exportSheet
+---
+file.pageSetup
+file.printPreview
+file.print
+file.openRecent
+file.exit
+= Edit
+edit.undo
+edit.redo
+edit.cut
+edit.copy
+edit.paste
+edit.pasteSpecial
+edit.selectAll
+edit.find
+edit.replace
+edit.findNext
+= View
+view.design
+view.datasheet
+form.propertySheet
+form.fieldList
+view.navPane
+view.statusBar
+= Format
+format.font
+form.align
+form.sizeSpace
+form.bringFront
+form.sendBack
+form.snapGrid
+form.gridlines
+= Tools
+create.queryWizard
+create.formWizard
+create.reportWizard
+create.labels
+---
+record.spelling
+dev.macros
+dev.objectBrowser
+dbtools.documenter
+dbtools.moveToServer
+file.options
+= Program
+xbase.runProgram
+xbase.compile
+dev.run
+dev.stepInto
+dev.breakpoint
+dev.watch
+xbase.commandWindow
+= Window
+view.cascade
+view.nextWindow
+xbase.commandWindow
+view.immediate
+= Help
+help.contents
+help.sql
+help.functions
+help.about
+
+@layout paradoxdos | Paradox 4.5 for DOS style | Paradox for DOS main menu (View, Ask, Report, Create, Modify, Image, Forms, Tools, Scripts, Help, Exit)
+= View
+view.datasheet
+xbase.browse
+= Ask
+create.queryDesign
+query.qbeExample
+query.qbeCheck
+query.answerTable
+query.run
+= Report
+create.report
+create.reportDesign
+file.printPreview
+file.print
+= Create
+create.tableDesign
+create.table
+= Modify
+sort.advanced
+xbase.edit
+record.save
+table.dataType
+table.indexes
+recover.repairParadox
+= Image
+sheet.fieldWidth
+form.numberFormat
+sheet.freeze
+edit.goToRecord
+= Forms
+create.formDesign
+view.form
+= Tools
+file.renameObject
+ext.importParadox
+ext.exportParadox
+xbase.copyTo
+record.delete
+file.info
+dbtools.documenter
+file.permissions
+= Scripts
+dev.recordMacro
+dev.stopRecording
+dev.macros
+dev.macroEditor
+= Help
+help.contents
+= Exit
+file.exit
+
+@layout paradoxwin | Paradox for Windows style | Paradox 7–11 for Windows (File, Edit, View, Record, Tools, Window, Help); approximate
+= File
+file.new
+file.open
+file.closeObject
+file.save
+file.saveAs
+---
+ext.importParadox
+ext.exportParadox
+---
+file.printPreview
+file.print
+file.exit
+= Edit
+edit.undo
+edit.cut
+edit.copy
+edit.paste
+edit.selectAll
+edit.find
+edit.replace
+= View
+view.design
+view.datasheet
+view.form
+form.propertySheet
+= Record
+record.new
+record.delete
+record.save
+record.undoRecord
+edit.goTo
+filter.byForm
+filter.toggle
+= Tools
+query.qbeExample
+query.answerTable
+table.indexes
+table.rebuildIndexes
+recover.repairParadox
+dbtools.documenter
+dev.macros
+file.options
+= Window
+view.tileH
+view.tileV
+view.cascade
+= Help
+help.contents
+help.about
+
+@layout filemaker | FileMaker Pro style | FileMaker Pro (File, Edit, View, Insert, Format, Records, Scripts, Window, Help)
+= File
+file.new
+file.open
+file.openRecent
+file.closeDatabase
+---
+file.permissions
+file.encrypt
+---
+ext.importFileMaker
+ext.exportSheet
+file.saveDatabaseAs
+file.backup
+---
+file.pageSetup
+file.print
+= Edit
+edit.undo
+edit.redo
+edit.cut
+edit.copy
+edit.paste
+edit.selectAll
+edit.find
+edit.replace
+record.spelling
+= View
+view.browseMode
+view.findMode
+view.layoutMode
+view.previewMode
+---
+create.cardView
+view.datasheet
+view.form
+view.zoom
+view.statusBar
+= Insert
+record.insertDate
+record.insertTime
+form.insertImage
+form.portal
+form.signature
+= Format
+format.font
+format.fontSize
+format.bold
+format.italic
+format.alignLeft
+format.center
+format.alignRight
+form.numberFormat
+form.conditional
+= Records
+record.new
+record.duplicate
+record.delete
+---
+filter.omit
+filter.showOmitted
+filter.constrain
+filter.extend
+filter.clearAll
+sort.advanced
+---
+record.save
+record.undoRecord
+xbase.replace
+data.fillDown
+= Scripts
+create.fmScript
+dev.macros
+macro.debug
+= Window
+file.newWindow
+view.tileH
+view.tileV
+view.cascade
+= Help
+help.contents
+help.migrationGuides
+help.about
+
+@layout approach | Lotus Approach style | Lotus Approach 97 (File, Edit, View, Create, Browse, Window, Help)
+= File
+file.new
+file.open
+file.closeDatabase
+file.save
+file.saveAs
+ext.importApproach
+ext.exportSheet
+file.printPreview
+file.print
+file.exit
+= Edit
+edit.undo
+edit.cut
+edit.copy
+edit.paste
+edit.find
+edit.replace
+= View
+view.form
+view.datasheet
+view.design
+view.previewMode
+= Create
+create.form
+create.report
+create.labels
+create.formLetters
+create.chart
+create.pivot
+create.tableDesign
+= Browse
+record.new
+record.duplicate
+record.delete
+filter.byForm
+filter.clearAll
+sort.ascending
+sort.descending
+record.refresh
+= Window
+view.cascade
+view.nextWindow
+= Help
+help.contents
+
+@layout works | Microsoft Works database style | Works 4–9 database (File, Edit, View, Record, Format, Tools, Window, Help)
+= File
+file.new
+file.open
+file.closeDatabase
+file.save
+file.saveAs
+file.pageSetup
+file.printPreview
+file.print
+file.exit
+= Edit
+edit.undo
+edit.cut
+edit.copy
+edit.paste
+edit.find
+edit.replace
+data.fillDown
+= View
+view.datasheet
+view.form
+view.design
+create.report
+= Record
+record.new
+record.delete
+table.addField
+sheet.hideFields
+filter.menu
+filter.toggle
+sort.advanced
+= Format
+format.font
+table.format
+sheet.fieldWidth
+sheet.rowHeight
+format.alignLeft
+= Tools
+create.reportWizard
+create.labels
+create.formLetters
+record.spelling
+file.options
+= Window
+view.cascade
+view.nextWindow
+= Help
+help.contents
+
+@layout base | LibreOffice Base style | LibreOffice Base (File, Edit, View, Insert, Tools, Window, Help)
+= File
+file.new
+file.open
+file.openRecent
+file.save
+file.saveAs
+ext.exportSheet
+file.closeDatabase
+file.properties
+file.exit
+= Edit
+edit.undo
+edit.redo
+edit.cut
+edit.copy
+edit.paste
+edit.pasteSpecial
+edit.selectAll
+edit.find
+= View
+view.navCategory
+view.sql
+view.design
+view.statusBar
+= Insert
+create.form
+create.report
+create.queryDesign
+create.sqlQuery
+create.tableDesign
+create.serverView
+= Tools
+dbtools.relationships
+file.permissions
+ext.connections
+query.sqlEditor
+ext.linkedTables
+dev.macros
+file.options
+= Window
+file.newWindow
+view.nextWindow
+= Help
+help.contents
+help.about
+
+@layout ssms | SQL Server Management Studio style | SSMS (File, Edit, View, Query, Project, Tools, Window, Help)
+= File
+file.openConnection
+file.open
+file.new
+file.save
+file.saveAs
+file.closeObject
+file.exit
+= Edit
+edit.undo
+edit.redo
+edit.cut
+edit.copy
+edit.paste
+edit.find
+edit.replace
+query.comment
+query.formatSql
+= View
+query.schemaBrowser
+view.navPane
+query.history
+view.statusBar
+view.fullScreen
+= Query
+query.run
+query.runStatement
+query.cancel
+query.explain
+query.resultsTarget
+---
+query.begin
+query.commit
+query.rollback
+query.autoCommit
+---
+query.parameters
+query.dialect
+= Project
+create.serverView
+create.procedure
+create.trigger
+dbtools.jobs
+= Tools
+dbtools.schemaCompare
+dbtools.dataCompare
+dbtools.queryStats
+dbtools.indexAdvisor
+file.backup
+file.restore
+file.permissions
+file.options
+= Window
+view.split
+view.nextWindow
+view.tabbed
+= Help
+help.contents
+help.sql
+help.about
+
+@layout dbeaver | DBeaver style | DBeaver (File, Edit, Navigate, Search, SQL Editor, Database, Window, Help)
+= File
+file.new
+file.open
+file.openConnection
+file.save
+file.saveAs
+ext.importSheet
+ext.exportSheet
+file.exit
+= Edit
+edit.undo
+edit.redo
+edit.cut
+edit.copy
+edit.paste
+edit.find
+edit.replace
+= Navigate
+query.schemaBrowser
+dbtools.erDiagram
+dbtools.dependencies
+edit.goTo
+= Search
+edit.findEverywhere
+view.navSearch
+= SQL Editor
+query.sqlEditor
+query.runStatement
+query.runScript
+query.explain
+query.formatSql
+query.comment
+query.snippets
+query.history
+query.resultsChart
+query.pinResult
+= Database
+ext.connections
+ext.testConnection
+query.begin
+query.commit
+query.rollback
+query.autoCommit
+dbtools.profile
+data.testData
+dbtools.schemaCompare
+= Window
+view.split
+view.nextWindow
+file.options
+= Help
+help.contents
+help.about
